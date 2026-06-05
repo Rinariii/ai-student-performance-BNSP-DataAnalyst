@@ -240,6 +240,11 @@ def load_data():
         bins=[-0.01, 5, 15, df['Weekly_GenAI_Hours'].max() + 1],
         labels=['Light (0–5 jam)', 'Moderate (5–15 jam)', 'Heavy (>15 jam)']
     )
+    df['AI_Dependency_Segment'] = pd.cut(
+        df['Perceived_AI_Dependency'],
+        bins=[-0.01, 3, 6, 10.01],
+        labels=['Low Dependency (1-3)', 'Medium Dependency (4-6)', 'High Dependency (7-10)']
+    )
     df['GPA_Change'] = df['Post_Semester_GPA'] - df['Pre_Semester_GPA']
 
     return df

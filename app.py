@@ -131,7 +131,7 @@ st.markdown("""
     .section-header {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #e2e8f0;
+        color: #1e293b;
         margin: 32px 0 8px 0;
         padding-bottom: 8px;
         border-bottom: 2px solid rgba(99, 102, 241, 0.3);
@@ -141,7 +141,7 @@ st.markdown("""
     }
     .section-subtitle {
         font-size: 0.9rem;
-        color: #94a3b8;
+        color: #64748b;
         margin-bottom: 20px;
         line-height: 1.5;
     }

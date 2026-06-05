@@ -6,7 +6,9 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
 
+# ============================================================================
 # PAGE CONFIG & THEME
+# ============================================================================
 st.set_page_config(
     page_title="📊 AI Impact Dashboard — BNSP Data Analyst",
     page_icon="🎓",
@@ -14,7 +16,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ============================================================================
 # CUSTOM CSS — Premium Dark Theme
+# ============================================================================
 st.markdown("""
 <style>
     /* ---------- Import Google Fonts ---------- */
@@ -162,7 +166,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# ============================================================================
 # LOAD DATA
+# ============================================================================
 @st.cache_data
 def load_data():
     """Load and preprocess the dataset."""
@@ -196,7 +202,9 @@ def load_data():
 
 df_raw = load_data()
 
+# ============================================================================
 # PLOTLY THEME
+# ============================================================================
 COLORS = {
     'primary': '#818cf8',
     'secondary': '#c084fc',
@@ -722,7 +730,7 @@ with tab4:
 
     # --- 4b. Average Retention by Dependency level ---
     with col2:
-        dep_bins = pd.cut(df['Perceived_AI_Dependency'], bins=range(0, 12), labels=[str(i) for i in range(1, 11)])
+        dep_bins = pd.cut(df['Perceived_AI_Dependency'], bins=range(0, 11), labels=[str(i) for i in range(1, 11)])
         ret_by_dep = df.copy()
         ret_by_dep['Dep_Bin'] = dep_bins
         ret_avg = ret_by_dep.groupby('Dep_Bin', observed=True)['Skill_Retention_Score'].mean().reset_index()

@@ -6,7 +6,9 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
 
-# Page Config
+# ============================================================================
+# PAGE CONFIG & THEME
+# ============================================================================
 st.set_page_config(
     page_title="📊 AI Impact Dashboard — BNSP Data Analyst",
     page_icon="🎓",
@@ -14,7 +16,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS design
+# ============================================================================
+# CUSTOM CSS — Premium Dark Theme
+# ============================================================================
 st.markdown("""
 <style>
     /* ---------- Import Google Fonts ---------- */
@@ -207,7 +211,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Data Loading
+# ============================================================================
+# LOAD DATA
+# ============================================================================
 @st.cache_data
 def load_data():
     """Load and preprocess the dataset."""
@@ -241,6 +247,9 @@ def load_data():
 
 df_raw = load_data()
 
+# ============================================================================
+# PLOTLY THEME
+# ============================================================================
 COLORS = {
     'primary': '#818cf8',
     'secondary': '#c084fc',
@@ -264,6 +273,7 @@ SEGMENT_COLORS = {'Light (0–5 jam)': '#34d399', 'Moderate (5–15 jam)': '#fbb
 
 
 def plotly_layout(title="", height=450, showlegend=True):
+    """Return a consistent Plotly layout dict."""
     return dict(
         title=dict(text=title, font=dict(size=16, color=COLORS['text'], family='Inter')),
         paper_bgcolor='rgba(0,0,0,0)',
@@ -287,7 +297,9 @@ def plotly_layout(title="", height=450, showlegend=True):
     )
 
 
-# Sidebar Streamlit
+# ============================================================================
+# SIDEBAR — FILTERS
+# ============================================================================
 with st.sidebar:
     st.markdown("## 🎛️ Filter Dashboard")
     st.markdown("---")
@@ -349,12 +361,19 @@ with st.sidebar:
         © 2024
     </div>
     """, unsafe_allow_html=True)
+
+
+# ============================================================================
+# GUARD: No data
+# ============================================================================
 if len(df) == 0:
     st.warning("⚠️ Tidak ada data yang sesuai filter. Silakan ubah pilihan filter di sidebar.")
     st.stop()
 
 
-# Header
+# ============================================================================
+# HEADER
+# ============================================================================
 st.markdown("""
 <div class="dashboard-title">
     <h1>🎓 AI Impact on Students Dashboard</h1>
@@ -363,7 +382,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# KPI 
+# ============================================================================
+# KPI SECTION
+# ============================================================================
 avg_gpa = df['Post_Semester_GPA'].mean()
 avg_retention = df['Skill_Retention_Score'].mean()
 high_burnout_pct = (df['Burnout_Risk_Level'] == 'High').sum() / len(df) * 100
@@ -406,7 +427,9 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# Main 
+# ============================================================================
+# TABS — Main Content
+# ============================================================================
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📋 Overview",
     "🤖 Dampak AI",
@@ -416,7 +439,9 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 ])
 
 
+# ============================================================================
 # TAB 1: OVERVIEW
+# ============================================================================
 with tab1:
     st.markdown('<div class="section-header">📋 Overview — Distribusi Mahasiswa</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">Distribusi mahasiswa berdasarkan bidang studi, jenjang pendidikan, dan kebijakan institusi.</div>', unsafe_allow_html=True)
@@ -508,7 +533,9 @@ with tab1:
         st.plotly_chart(fig_gpa_major, use_container_width=True)
 
 
+# ============================================================================
 # TAB 2: DAMPAK AI
+# ============================================================================
 with tab2:
     st.markdown('<div class="section-header">🤖 Dampak AI — GPA vs Intensitas Penggunaan</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">Perubahan GPA rata-rata berdasarkan segmentasi penggunaan AI: Light (0–5 jam), Moderate (5–15 jam), Heavy (>15 jam).</div>', unsafe_allow_html=True)
@@ -616,7 +643,9 @@ with tab2:
     st.dataframe(seg_detail, use_container_width=True, hide_index=True)
 
 
+# ============================================================================
 # TAB 3: KESEHATAN MENTAL
+# ============================================================================
 with tab3:
     st.markdown('<div class="section-header">🧠 Kesehatan Mental — Burnout & Anxiety</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">Distribusi Burnout Risk Level dan Anxiety Level berdasarkan kebijakan institusi.</div>', unsafe_allow_html=True)
@@ -690,24 +719,30 @@ with tab3:
         st.plotly_chart(fig_bp_pct, use_container_width=True)
 
     with col4:
-        # Anxiety by AI segment
+        # Anxiety by AI Dependency segment (Temuan 3)
         fig_anx_seg = px.violin(
-            df, x='AI_Usage_Segment', y='Anxiety_Level_During_Exams',
-            color='AI_Usage_Segment',
-            color_discrete_map=SEGMENT_COLORS,
+            df, x='AI_Dependency_Segment', y='Anxiety_Level_During_Exams',
+            color='AI_Dependency_Segment',
+            color_discrete_map={
+                'Low Dependency (1-3)': '#22c55e',
+                'Medium Dependency (4-6)': '#fbbf24',
+                'High Dependency (7-10)': '#f87171'
+            },
             box=True, points=False,
-            category_orders={'AI_Usage_Segment': ['Light (0–5 jam)', 'Moderate (5–15 jam)', 'Heavy (>15 jam)']},
+            category_orders={'AI_Dependency_Segment': ['Low Dependency (1-3)', 'Medium Dependency (4-6)', 'High Dependency (7-10)']},
             labels={
                 'Anxiety_Level_During_Exams': 'Anxiety Level',
-                'AI_Usage_Segment': 'Segmen AI'
+                'AI_Dependency_Segment': 'Segmen Ketergantungan AI'
             }
         )
-        fig_anx_seg.update_layout(**plotly_layout("Anxiety Level per Segmen Penggunaan AI", showlegend=False))
+        fig_anx_seg.update_layout(**plotly_layout("Anxiety Level per Segmen Ketergantungan AI", showlegend=False))
         fig_anx_seg.update_xaxes(title_text="")
         st.plotly_chart(fig_anx_seg, use_container_width=True)
 
 
+# ============================================================================
 # TAB 4: RETENSI PENGETAHUAN
+# ============================================================================
 with tab4:
     st.markdown('<div class="section-header">📖 Retensi Pengetahuan — Skill Retention vs AI Dependency</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">Korelasi antara Skill Retention Score dengan Perceived AI Dependency.</div>', unsafe_allow_html=True)
@@ -783,7 +818,9 @@ with tab4:
     st.plotly_chart(fig_hm, use_container_width=True)
 
 
+# ============================================================================
 # TAB 5: PROFIL RISIKO
+# ============================================================================
 with tab5:
     st.markdown('<div class="section-header">⚠️ Profil Risiko — Segmentasi AI Dependency × Burnout</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">Segmentasi mahasiswa berdasarkan kombinasi tingkat ketergantungan AI dan risiko burnout untuk mengidentifikasi kelompok berisiko tinggi.</div>', unsafe_allow_html=True)
@@ -890,7 +927,9 @@ with tab5:
         st.info("Tidak ada mahasiswa dalam kategori High Dependency + High Burnout dengan filter saat ini.")
 
 
+# ============================================================================
 # FOOTER
+# ============================================================================
 st.markdown("---")
 st.markdown("""
 <div style="text-align:center; color:#64748b; padding:20px 0; font-size:0.8rem;">

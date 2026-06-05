@@ -25,53 +25,56 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
 
-    /* ---------- Sidebar ---------- */
+    /* ---------- Sidebar (Light Theme) ---------- */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
-        border-right: 1px solid rgba(99, 102, 241, 0.2);
+        background: linear-gradient(180deg, #f8f7ff 0%, #eef2ff 50%, #f8f7ff 100%);
+        border-right: 1px solid rgba(99, 102, 241, 0.15);
     }
     section[data-testid="stSidebar"] .stMarkdown h1,
     section[data-testid="stSidebar"] .stMarkdown h2,
     section[data-testid="stSidebar"] .stMarkdown h3 {
-        color: #a5b4fc !important;
+        color: #4338ca !important;
     }
     section[data-testid="stSidebar"] .stMarkdown p,
     section[data-testid="stSidebar"] .stMarkdown label {
-        color: #cbd5e1 !important;
+        color: #475569 !important;
+    }
+    section[data-testid="stSidebar"] hr {
+        border-color: rgba(99, 102, 241, 0.15) !important;
     }
 
     /* ---------- Sidebar Multiselect Tags ---------- */
     section[data-testid="stSidebar"] span[data-baseweb="tag"] {
-        background-color: rgba(99, 102, 241, 0.25) !important;
-        border: 1px solid rgba(129, 140, 248, 0.4) !important;
-        color: #c7d2fe !important;
+        background-color: #818cf8 !important;
+        border: 1px solid #6366f1 !important;
+        color: #ffffff !important;
         border-radius: 8px !important;
     }
     section[data-testid="stSidebar"] span[data-baseweb="tag"] span {
-        color: #c7d2fe !important;
+        color: #ffffff !important;
     }
     section[data-testid="stSidebar"] span[data-baseweb="tag"] svg {
-        fill: #a5b4fc !important;
+        fill: #e0e7ff !important;
     }
     section[data-testid="stSidebar"] span[data-baseweb="tag"]:hover {
-        background-color: rgba(99, 102, 241, 0.4) !important;
-        border-color: rgba(129, 140, 248, 0.6) !important;
+        background-color: #6366f1 !important;
+        border-color: #4f46e5 !important;
     }
 
     /* ---------- Sidebar Inputs / Dropdowns ---------- */
     section[data-testid="stSidebar"] [data-baseweb="select"] > div {
-        background-color: rgba(15, 15, 35, 0.6) !important;
-        border-color: rgba(99, 102, 241, 0.3) !important;
+        background-color: #ffffff !important;
+        border-color: #c7d2fe !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"] > div:hover {
-        border-color: rgba(129, 140, 248, 0.5) !important;
+        border-color: #818cf8 !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {
-        border-color: #818cf8 !important;
-        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.3) !important;
+        border-color: #6366f1 !important;
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25) !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="icon"] svg {
-        fill: #a5b4fc !important;
+        fill: #6366f1 !important;
     }
 
     /* ---------- KPI Cards ---------- */

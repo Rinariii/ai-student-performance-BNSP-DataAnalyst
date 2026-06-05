@@ -167,18 +167,26 @@ st.markdown("""
     /* ---------- Info Box ---------- */
     .info-box {
         background: rgba(99, 102, 241, 0.08);
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        border: 1px solid rgba(99, 102, 241, 0.18);
         border-radius: 12px;
         padding: 16px 20px;
-        color: #cbd5e1;
+        color: #475569;
         font-size: 0.9rem;
         margin-bottom: 16px;
     }
 
-    /* ---------- Hide Streamlit Defaults ---------- */
-    #MainMenu {visibility: hidden;}
-    header {visibility: hidden;}
+    /* ---------- Hide Streamlit Defaults (keep sidebar toggle visible) ---------- */
     footer {visibility: hidden;}
+
+    /* ---------- Ensure Sidebar Toggle Button Always Visible ---------- */
+    button[data-testid="stSidebarCollapseButton"],
+    button[data-testid="baseButton-headerNoPadding"],
+    [data-testid="collapsedControl"] {
+        visibility: visible !important;
+        display: block !important;
+        z-index: 999999 !important;
+        position: relative !important;
+    }
 
     /* ---------- Tab Styling ---------- */
     .stTabs [data-baseweb="tab-list"] {

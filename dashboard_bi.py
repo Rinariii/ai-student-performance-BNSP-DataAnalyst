@@ -1,17 +1,3 @@
-"""
-================================================================================
-BUSINESS INTELLIGENCE DASHBOARD
-Dampak Penggunaan AI Generatif terhadap Performa Akademik & Kesejahteraan Mahasiswa
-================================================================================
-
-Sertifikasi BNSP Data Analyst
-Tools: Streamlit + Plotly
-Dataset: AI Impact on Students (50.000 mahasiswa)
-
-Jalankan: streamlit run dashboard_bi.py
-================================================================================
-"""
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -20,9 +6,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
 
-# ============================================================================
 # PAGE CONFIG & THEME
-# ============================================================================
 st.set_page_config(
     page_title="📊 AI Impact Dashboard — BNSP Data Analyst",
     page_icon="🎓",
@@ -30,9 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ============================================================================
 # CUSTOM CSS — Premium Dark Theme
-# ============================================================================
 st.markdown("""
 <style>
     /* ---------- Import Google Fonts ---------- */
@@ -180,9 +162,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ============================================================================
 # LOAD DATA
-# ============================================================================
 @st.cache_data
 def load_data():
     """Load and preprocess the dataset."""
@@ -216,9 +196,7 @@ def load_data():
 
 df_raw = load_data()
 
-# ============================================================================
 # PLOTLY THEME
-# ============================================================================
 COLORS = {
     'primary': '#818cf8',
     'secondary': '#c084fc',
@@ -900,6 +878,6 @@ st.markdown("""
 <div style="text-align:center; color:#64748b; padding:20px 0; font-size:0.8rem;">
     <strong>Dashboard BI — Modul 6</strong> | Sertifikasi BNSP Data Analyst<br/>
     Dataset: AI Impact on Students — 50.000 Mahasiswa | 16 Variabel<br/>
-    Built with Streamlit + Plotly | © 2024
+    Built with Streamlit + Plotly | © 2026
 </div>
 """, unsafe_allow_html=True)
